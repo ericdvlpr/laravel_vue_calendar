@@ -16680,44 +16680,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -16736,8 +16698,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       newEvent: {
         event_name: "",
         start_date: "",
-        end_date: "",
-        days: []
+        end_date: ""
       },
       addingMode: true,
       indexToUpdate: ""
@@ -16772,56 +16733,29 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           title = _this$events$find.title,
           start = _this$events$find.start,
           end = _this$events$find.end,
-          days = _this$events$find.days;
+          daysofweek = _this$events$find.daysofweek;
 
       this.indexToUpdate = id;
       this.newEvent = {
         event_name: title,
         start_date: start,
-        end_date: end,
-        daysOfWeek: days
+        end_date: end
       };
     },
-    updateEvent: function updateEvent() {
+    getEvents: function getEvents() {
       var _this2 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_5___default.a.put("/api/calendar/" + this.indexToUpdate, _objectSpread({}, this.newEvent)).then(function (resp) {
-        _this2.resetForm();
-
-        _this2.getEvents();
-
-        _this2.addingMode = !_this2.addingMode;
-      })["catch"](function (err) {
-        return console.log("Unable to update event!", err.response.data);
-      });
-    },
-    deleteEvent: function deleteEvent() {
-      var _this3 = this;
-
-      axios__WEBPACK_IMPORTED_MODULE_5___default.a["delete"]("/api/calendar/" + this.indexToUpdate).then(function (resp) {
-        _this3.resetForm();
-
-        _this3.getEvents();
-
-        _this3.addingMode = !_this3.addingMode;
-      })["catch"](function (err) {
-        return console.log("Unable to delete event!", err.response.data);
-      });
-    },
-    getEvents: function getEvents() {
-      var _this4 = this;
-
       axios__WEBPACK_IMPORTED_MODULE_5___default.a.get("/api/calendar").then(function (resp) {
-        return _this4.events = resp.data.data;
+        return _this2.events = resp.data.data;
       })["catch"](function (err) {
         return console.log(err.response.data);
       });
     },
     resetForm: function resetForm() {
-      var _this5 = this;
+      var _this3 = this;
 
       Object.keys(this.newEvent).forEach(function (key) {
-        return _this5.newEvent[key] = "";
+        return _this3.newEvent[key] = "";
       });
     }
   },
@@ -53173,557 +53107,84 @@ var render = function() {
               })
             ]),
             _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "row" },
-              [
-                _c("div", { staticClass: "col-md-6" }, [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", { attrs: { for: "start_date" } }, [
-                      _vm._v("Start Date")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.newEvent.start_date,
-                          expression: "newEvent.start_date"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "date", id: "start_date" },
-                      domProps: { value: _vm.newEvent.start_date },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.newEvent,
-                            "start_date",
-                            $event.target.value
-                          )
-                        }
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-md-6" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "start_date" } }, [
+                    _vm._v("Start Date")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.newEvent.start_date,
+                        expression: "newEvent.start_date"
                       }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-md-6" }, [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", { attrs: { for: "end_date" } }, [
-                      _vm._v("End Date")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.newEvent.end_date,
-                          expression: "newEvent.end_date"
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "date", id: "start_date" },
+                    domProps: { value: _vm.newEvent.start_date },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
                         }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "date", id: "end_date" },
-                      domProps: { value: _vm.newEvent.end_date },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.newEvent,
-                            "end_date",
-                            $event.target.value
-                          )
-                        }
-                      }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-md-12" }, [
-                  _c("div", { staticClass: "form-group form-check" }, [
-                    _c("div", { staticClass: "form-check form-check-inline" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.newEvent.day,
-                            expression: "newEvent.day"
-                          }
-                        ],
-                        staticClass: "form-check-input",
-                        attrs: {
-                          type: "checkbox",
-                          name: "dayofweek[]",
-                          value: "0"
-                        },
-                        domProps: {
-                          checked: Array.isArray(_vm.newEvent.day)
-                            ? _vm._i(_vm.newEvent.day, "0") > -1
-                            : _vm.newEvent.day
-                        },
-                        on: {
-                          change: function($event) {
-                            var $$a = _vm.newEvent.day,
-                              $$el = $event.target,
-                              $$c = $$el.checked ? true : false
-                            if (Array.isArray($$a)) {
-                              var $$v = "0",
-                                $$i = _vm._i($$a, $$v)
-                              if ($$el.checked) {
-                                $$i < 0 &&
-                                  _vm.$set(
-                                    _vm.newEvent,
-                                    "day",
-                                    $$a.concat([$$v])
-                                  )
-                              } else {
-                                $$i > -1 &&
-                                  _vm.$set(
-                                    _vm.newEvent,
-                                    "day",
-                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                                  )
-                              }
-                            } else {
-                              _vm.$set(_vm.newEvent, "day", $$c)
-                            }
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        {
-                          staticClass: "form-check-label",
-                          attrs: { for: "inlineRadio2" }
-                        },
-                        [_vm._v("Sun")]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-check form-check-inline" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.newEvent.day,
-                            expression: "newEvent.day"
-                          }
-                        ],
-                        staticClass: "form-check-input",
-                        attrs: {
-                          type: "checkbox",
-                          name: "dayofweek[]",
-                          value: "1"
-                        },
-                        domProps: {
-                          checked: Array.isArray(_vm.newEvent.day)
-                            ? _vm._i(_vm.newEvent.day, "1") > -1
-                            : _vm.newEvent.day
-                        },
-                        on: {
-                          change: function($event) {
-                            var $$a = _vm.newEvent.day,
-                              $$el = $event.target,
-                              $$c = $$el.checked ? true : false
-                            if (Array.isArray($$a)) {
-                              var $$v = "1",
-                                $$i = _vm._i($$a, $$v)
-                              if ($$el.checked) {
-                                $$i < 0 &&
-                                  _vm.$set(
-                                    _vm.newEvent,
-                                    "day",
-                                    $$a.concat([$$v])
-                                  )
-                              } else {
-                                $$i > -1 &&
-                                  _vm.$set(
-                                    _vm.newEvent,
-                                    "day",
-                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                                  )
-                              }
-                            } else {
-                              _vm.$set(_vm.newEvent, "day", $$c)
-                            }
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        {
-                          staticClass: "form-check-label",
-                          attrs: { for: "inlineRadio1" }
-                        },
-                        [_vm._v("Mon")]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-check form-check-inline" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.newEvent.day,
-                            expression: "newEvent.day"
-                          }
-                        ],
-                        staticClass: "form-check-input",
-                        attrs: {
-                          type: "checkbox",
-                          name: "dayofweek[]",
-                          value: "2"
-                        },
-                        domProps: {
-                          checked: Array.isArray(_vm.newEvent.day)
-                            ? _vm._i(_vm.newEvent.day, "2") > -1
-                            : _vm.newEvent.day
-                        },
-                        on: {
-                          change: function($event) {
-                            var $$a = _vm.newEvent.day,
-                              $$el = $event.target,
-                              $$c = $$el.checked ? true : false
-                            if (Array.isArray($$a)) {
-                              var $$v = "2",
-                                $$i = _vm._i($$a, $$v)
-                              if ($$el.checked) {
-                                $$i < 0 &&
-                                  _vm.$set(
-                                    _vm.newEvent,
-                                    "day",
-                                    $$a.concat([$$v])
-                                  )
-                              } else {
-                                $$i > -1 &&
-                                  _vm.$set(
-                                    _vm.newEvent,
-                                    "day",
-                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                                  )
-                              }
-                            } else {
-                              _vm.$set(_vm.newEvent, "day", $$c)
-                            }
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        {
-                          staticClass: "form-check-label",
-                          attrs: { for: "inlineRadio2" }
-                        },
-                        [_vm._v("Tue")]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-check form-check-inline" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.newEvent.day,
-                            expression: "newEvent.day"
-                          }
-                        ],
-                        staticClass: "form-check-input",
-                        attrs: {
-                          type: "checkbox",
-                          name: "dayofweek[]",
-                          value: "3"
-                        },
-                        domProps: {
-                          checked: Array.isArray(_vm.newEvent.day)
-                            ? _vm._i(_vm.newEvent.day, "3") > -1
-                            : _vm.newEvent.day
-                        },
-                        on: {
-                          change: function($event) {
-                            var $$a = _vm.newEvent.day,
-                              $$el = $event.target,
-                              $$c = $$el.checked ? true : false
-                            if (Array.isArray($$a)) {
-                              var $$v = "3",
-                                $$i = _vm._i($$a, $$v)
-                              if ($$el.checked) {
-                                $$i < 0 &&
-                                  _vm.$set(
-                                    _vm.newEvent,
-                                    "day",
-                                    $$a.concat([$$v])
-                                  )
-                              } else {
-                                $$i > -1 &&
-                                  _vm.$set(
-                                    _vm.newEvent,
-                                    "day",
-                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                                  )
-                              }
-                            } else {
-                              _vm.$set(_vm.newEvent, "day", $$c)
-                            }
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        {
-                          staticClass: "form-check-label",
-                          attrs: { for: "inlineRadio1" }
-                        },
-                        [_vm._v("Wed")]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-check form-check-inline" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.newEvent.day,
-                            expression: "newEvent.day"
-                          }
-                        ],
-                        staticClass: "form-check-input",
-                        attrs: {
-                          type: "checkbox",
-                          name: "dayofweek[]",
-                          value: "4"
-                        },
-                        domProps: {
-                          checked: Array.isArray(_vm.newEvent.day)
-                            ? _vm._i(_vm.newEvent.day, "4") > -1
-                            : _vm.newEvent.day
-                        },
-                        on: {
-                          change: function($event) {
-                            var $$a = _vm.newEvent.day,
-                              $$el = $event.target,
-                              $$c = $$el.checked ? true : false
-                            if (Array.isArray($$a)) {
-                              var $$v = "4",
-                                $$i = _vm._i($$a, $$v)
-                              if ($$el.checked) {
-                                $$i < 0 &&
-                                  _vm.$set(
-                                    _vm.newEvent,
-                                    "day",
-                                    $$a.concat([$$v])
-                                  )
-                              } else {
-                                $$i > -1 &&
-                                  _vm.$set(
-                                    _vm.newEvent,
-                                    "day",
-                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                                  )
-                              }
-                            } else {
-                              _vm.$set(_vm.newEvent, "day", $$c)
-                            }
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        {
-                          staticClass: "form-check-label",
-                          attrs: { for: "inlineRadio2" }
-                        },
-                        [_vm._v("Thu")]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-check form-check-inline" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.newEvent.day,
-                            expression: "newEvent.day"
-                          }
-                        ],
-                        staticClass: "form-check-input",
-                        attrs: {
-                          type: "checkbox",
-                          name: "dayofweek[]",
-                          value: "5"
-                        },
-                        domProps: {
-                          checked: Array.isArray(_vm.newEvent.day)
-                            ? _vm._i(_vm.newEvent.day, "5") > -1
-                            : _vm.newEvent.day
-                        },
-                        on: {
-                          change: function($event) {
-                            var $$a = _vm.newEvent.day,
-                              $$el = $event.target,
-                              $$c = $$el.checked ? true : false
-                            if (Array.isArray($$a)) {
-                              var $$v = "5",
-                                $$i = _vm._i($$a, $$v)
-                              if ($$el.checked) {
-                                $$i < 0 &&
-                                  _vm.$set(
-                                    _vm.newEvent,
-                                    "day",
-                                    $$a.concat([$$v])
-                                  )
-                              } else {
-                                $$i > -1 &&
-                                  _vm.$set(
-                                    _vm.newEvent,
-                                    "day",
-                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                                  )
-                              }
-                            } else {
-                              _vm.$set(_vm.newEvent, "day", $$c)
-                            }
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        {
-                          staticClass: "form-check-label",
-                          attrs: { for: "inlineRadio1" }
-                        },
-                        [_vm._v("Fri")]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-check form-check-inline" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.newEvent.day,
-                            expression: "newEvent.day"
-                          }
-                        ],
-                        staticClass: "form-check-input",
-                        attrs: {
-                          type: "checkbox",
-                          name: "dayofweek[]",
-                          value: "6"
-                        },
-                        domProps: {
-                          checked: Array.isArray(_vm.newEvent.day)
-                            ? _vm._i(_vm.newEvent.day, "6") > -1
-                            : _vm.newEvent.day
-                        },
-                        on: {
-                          change: function($event) {
-                            var $$a = _vm.newEvent.day,
-                              $$el = $event.target,
-                              $$c = $$el.checked ? true : false
-                            if (Array.isArray($$a)) {
-                              var $$v = "6",
-                                $$i = _vm._i($$a, $$v)
-                              if ($$el.checked) {
-                                $$i < 0 &&
-                                  _vm.$set(
-                                    _vm.newEvent,
-                                    "day",
-                                    $$a.concat([$$v])
-                                  )
-                              } else {
-                                $$i > -1 &&
-                                  _vm.$set(
-                                    _vm.newEvent,
-                                    "day",
-                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                                  )
-                              }
-                            } else {
-                              _vm.$set(_vm.newEvent, "day", $$c)
-                            }
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        {
-                          staticClass: "form-check-label",
-                          attrs: { for: "inlineRadio2" }
-                        },
-                        [_vm._v("Sat")]
-                      )
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _vm.addingMode
-                  ? _c("div", { staticClass: "col-md-6 mb-4" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-sm btn-primary",
-                          on: { click: _vm.addNewEvent }
-                        },
-                        [_vm._v("Save Event")]
-                      )
-                    ])
-                  : [
-                      _c("div", { staticClass: "col-md-6 mb-4" }, [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-sm btn-success",
-                            on: { click: _vm.updateEvent }
-                          },
-                          [_vm._v("Update")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-sm btn-danger",
-                            on: { click: _vm.deleteEvent }
-                          },
-                          [_vm._v("Delete")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-sm btn-secondary",
-                            on: {
-                              click: function($event) {
-                                _vm.addingMode = !_vm.addingMode
-                              }
-                            }
-                          },
-                          [_vm._v("Cancel")]
+                        _vm.$set(
+                          _vm.newEvent,
+                          "start_date",
+                          $event.target.value
                         )
-                      ])
-                    ]
-              ],
-              2
-            )
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-6" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "end_date" } }, [
+                    _vm._v("End Date")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.newEvent.end_date,
+                        expression: "newEvent.end_date"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "date", id: "end_date" },
+                    domProps: { value: _vm.newEvent.end_date },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.newEvent, "end_date", $event.target.value)
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _vm.addingMode
+                ? _c("div", { staticClass: "col-md-6 mb-4" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-sm btn-primary",
+                        on: { click: _vm.addNewEvent }
+                      },
+                      [_vm._v("Save Event")]
+                    )
+                  ])
+                : _vm._e()
+            ])
           ]
         )
       ]),

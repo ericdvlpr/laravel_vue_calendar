@@ -18,7 +18,7 @@ class CreateCalendarsTable extends Migration
             $table->string('event_name');
             $table->date('start_date');
             $table->date('end_date');
-            $table->json('day')->nullable();
+            $table->json('daysofweek')->nullable();
             $table->timestamps();
         });
     }

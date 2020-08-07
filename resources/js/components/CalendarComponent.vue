@@ -25,38 +25,6 @@
                 <input type="date" id="end_date" class="form-control" v-model="newEvent.end_date">
               </div>
             </div>
-            <div class="col-md-12">
-              <div class="form-group form-check">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" name="dayofweek[]" v-model="newEvent.day"  value="0">
-                        <label class="form-check-label" for="inlineRadio2">Sun</label>
-                      </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" name="dayofweek[]" v-model="newEvent.day"  value="1">
-                        <label class="form-check-label" for="inlineRadio1">Mon</label>
-                      </div>
-                      <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" name="dayofweek[]" v-model="newEvent.day"  value="2">
-                        <label class="form-check-label" for="inlineRadio2">Tue</label>
-                      </div>
-                      <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" name="dayofweek[]" v-model="newEvent.day"  value="3">
-                        <label class="form-check-label" for="inlineRadio1">Wed</label>
-                      </div>
-                      <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" name="dayofweek[]" v-model="newEvent.day"  value="4">
-                        <label class="form-check-label" for="inlineRadio2">Thu</label>
-                      </div>
-                      <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" name="dayofweek[]" v-model="newEvent.day"  value="5">
-                        <label class="form-check-label" for="inlineRadio1">Fri</label>
-                      </div>
-                      <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" name="dayofweek[]" v-model="newEvent.day"  value="6">
-                        <label class="form-check-label" for="inlineRadio2">Sat</label>
-                      </div>
-                </div>
-            </div>
             <div class="col-md-6 mb-4" v-if="addingMode">
               <button class="btn btn-sm btn-primary" @click="addNewEvent">Save Event</button>
             </div>
@@ -91,8 +59,7 @@ export default {
       newEvent: {
         event_name: "",
         start_date: "",
-        end_date: "",
-        days:[],
+        end_date: ""
       },
       addingMode: true,
       indexToUpdate: ""
@@ -120,15 +87,14 @@ export default {
     },
     showEvent(arg) {
       this.addingMode = false;
-      const { id, title, start, end,days} = this.events.find(
+      const { id, title, start, end,daysofweek} = this.events.find(
         event => event.id === +arg.event.id
       );
       this.indexToUpdate = id;
       this.newEvent = {
         event_name: title,
         start_date: start,
-        end_date: end,
-        daysOfWeek:days
+        end_date: end
       };
     },
     
